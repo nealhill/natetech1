@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p style="background-color:red; color:white">{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<form id="theform" action="#" method="post">
+    <p>
+        URL: <input type="text" id="theURL" name="targetURL" value="{{url}}" /> <button type="submit">Get Page</button>
+    </p>
+    <p>History:</p>
+    <select id="historyList" name="history" size="10"
+            onclick="document.getElementById('theURL').value=document.getElementById('historyList').value;">
+    {% if history %}
+        {% for urlItem in history.keys() %}
+            <option value="{{urlItem}}">{{urlItem}}</option>
+        {% endfor %}
+    {% endif %}}
+    </select>
+
+    <p>Result:</p>
+    <select id="words" name="wordOccurrences" size="10">
+    {% if results %}
+    {% for word in results.keys() %}
+        <option value="{{word}}">{{word}}: {{results[word]}}</option>
+    {% endfor %}
+        {% endif %}}
+    </select>
+</form>
+
+{% endblock %}
